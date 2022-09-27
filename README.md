@@ -4,6 +4,7 @@ tracking my code
 # mycode (Revision Control)
 
 This project will help expand knowledge on version control using the command line. 
+This is going to solidify my knowledge of linux commands. 
 
 ## Getting Started
 
