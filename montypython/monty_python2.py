@@ -6,13 +6,14 @@
 def main():
 
     turn = 0
+    answer = " "
 
-    while True:
+    while turn < 3 and answer != "Brian":
 
-        turn = turn + 1
+        turn +=  1
 
-        print('Finish the movie title, "Monty Python\'s The Life of ______"')
-        answer = input("Your guess --> ")
+        answer = input('Finish the movie title, "Monty Python\'s The Life of ______"')
+    
 
         if answer.lower() == 'brian':
             print("Correct")
