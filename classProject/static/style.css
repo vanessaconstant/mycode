@@ -34,3 +34,29 @@ body {
 .features-header {
   font-weight: 700;
 }
+
+/* ******* Dashboard Styles ******* */
+.search-bar {
+  margin: 0 13rem;
+}
+
+#search-input {
+  border-radius: 2rem;
+  width: 35rem;
+  padding: 0.5rem 1.5rem;
+}
+
+@media (max-width: 576px) {
+  #search_input {
+    width: 300px;
+  }
+
+  .search-bar {
+    margin: 1rem;
+  }
+
+  #logout-btn {
+    margin-left: 0;
+    padding-left: 0;
+  }
+}
