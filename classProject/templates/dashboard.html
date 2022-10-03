@@ -80,29 +80,31 @@
 
       <!-- Features -->
 
-      <h3 class="text-center h3 my-2 display-4 features-header">Features</h3>
+      <h3 class="text-center h3 my-2 display-4 features-header">Result</h3>
       <p class="text-center"></p>
-
-      {% for ingredient in result%}
-      <p>{{ingredient}}</p>
-      {%endfor%}
 
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Name</th>
+            <th scope="col">Proteins</th>
+            <th scope="col">Fats</th>
+            <th scope="col">Carbohydrates</th>
+            <th scope="col">Calories</th>
           </tr>
         </thead>
         <tbody>
+          {% for res in results%}
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            
+            {% for ingredient in res%}
+    
+            <th>{{res[ingredient]}}</th>
+      
+            {%endfor%}
+            
           </tr>
+          {%endfor%}
           
         </tbody>
       </table>

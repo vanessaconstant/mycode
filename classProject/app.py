@@ -1,5 +1,6 @@
 
 from crypt import methods
+from unittest import result
 from flask import Flask, render_template, redirect
 import requests
 
@@ -29,21 +30,30 @@ def search():
 
     response = requests.get(base_url, params=params)
 
-    
     result = response.json()['foods']
-    print(response.json()['foods'])
-    for i in range(0,2):
+    resultList = []
+   
+    for i in range(0,10):
         data = {
-            'name': result[i]['description'],
-            'Nutrients':result[i]['foodNutrients'][i]
+            'Name': result[i]['description'],
+            'Protein':result[i]['foodNutrients'][0]['value'],
+            'Fat':result[i]['foodNutrients'][1]['value'],
+            'Carbohydrate': result[i]['foodNutrients'][2]['value'],
+            'Calorie': result[i]['foodNutrients'][3]['value']
 
         }
+        type(resultList)
+        resultList.append(data)
+        print(resultList)
+        print(result[0]['foodNutrients'][0]['value'])
+        # protein, fat, carbs, calories
         print("New Ingredient start here")
-        print(result[i]['description'])
-        print(result[i]['foodNutrients'][i])
-        print("hello")
+    print(resultList)
+    results = resultList
+        # print(result[i]['foodNutrients'][i])
+        # print("hello")
         
-    return render_template('dashboard.html', result=result)
+    return render_template('dashboard.html', results=results)
 
 
 if __name__ == '__main__':
