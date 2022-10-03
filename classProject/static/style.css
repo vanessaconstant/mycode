@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Navabr styles */
+
+.logo {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.nav-item {
+  text-transform: uppercase;
+}
+
+.login_text {
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+/* Hero styles */
+
+.carousel_img {
+  height: 75vh;
+  width: auto;
+  object-fit: cover;
+}
+
+/* Features style */
+
+.features-header {
+  font-weight: 700;
+}
