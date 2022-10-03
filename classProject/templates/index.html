@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+
+    <!-- My Stylesheet -->
+    <link rel="stylesheet" href="../static/style.css" />
+
+    <title>FoodLoop</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand logo mx-4" href="#">FoodLoop</a>
+          <button
+            class="navbar-toggler border-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse nav-contents mt-2"
+            id="navbarSupportedContent"
+          >
+            <div class="navbar-nav me-auto mb-2 mb-lg-0"></div>
+            <div class="d-flex" role="search">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item mx-2">
+                  <a class="nav-link active" aria-current="page" href="#"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link" href="#">About us</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link" href="#">Services</a>
+                </li>
+              </ul>
+
+              <div>
+                <button class="btn btn-outline-light mx-4 px-5" type="submit">
+                  Register
+                </button>
+
+                <p class="login_text text-white">
+                  Already registered?
+                  <a
+                    href="https://www.google.com"
+                    class="login_link text-white"
+                  >
+                    <u>Login</u></a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Hero Section -->
+
+      <div
+        id="carouselExampleControls"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="../static/images/eaters-collective-12eHC6FxPyg-unsplash.jpg"
+              class="img-fluid carousel_img d-block w-100"
+              alt="Bowl of pasta"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../static/images/pexels-ella-olsson-1640777.jpg"
+              class="img-fluid carousel_img d-block w-100"
+              alt="Bowl of pasta"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../static/images/inigo-de-la-maza-s285sDw5Ikc-unsplash.jpg"
+              class="img-fluid carousel_img d-block w-100"
+              alt="Vegetables"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Features -->
+
+      <h3 class="text-center h3 my-2 display-4 features-header">Features</h3>
+      <p class="text-center"></p>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
