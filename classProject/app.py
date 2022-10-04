@@ -3,21 +3,30 @@ from crypt import methods
 from flask import Flask, render_template, redirect, request, session
 import requests
 
+
 app = Flask(__name__)
 
 
-
+# Index Page route
 @app.route('/')
 def index():
     
-    return render_template('index.html', name=name )
+    return render_template('index.html')
 
+
+# Dashboard Page
+@app.route('/dashboard')
+def dashboard():
+
+    return render_template('dashboard.html')
+
+# Search Page
 @app.route('/searchPage')
 def searchPage():
 
     return render_template('searchPage.html')
 
-
+#Search functionality calling API and giving results
 @app.route('/search', methods=['GET','POST'])
 def search():
 
@@ -72,6 +81,4 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-    # {{form.hidden_tag()}}
-    #               {{form.ingr.label}} {{form.ingr}}
-    #               {{form.submit()}}
+    
