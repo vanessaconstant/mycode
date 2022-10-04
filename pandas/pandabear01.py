@@ -8,7 +8,7 @@ import pandas as pd
 
 def main():
 
-    excel_file = 'movies.xls'
+    excel_file = '5movies.xlsx'
 
     # create a DataFrame (DF) object. EASY!
     # because we did not specify a sheet
