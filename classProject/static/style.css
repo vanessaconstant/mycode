@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  margin: 0 auto;
 }
 body {
   font-family: "Roboto", sans-serif;
@@ -36,13 +37,23 @@ body {
 }
 
 /* ******* Dashboard Styles ******* */
+
+.dashboard {
+  border-bottom: 1px solid #8a8888;
+}
+
+.macro-label {
+  font-weight: bold;
+}
+
+/* ******* Search Styles ******* */
 .search-bar {
   margin: 0 13rem;
 }
 
 #search-input {
   border-radius: 2rem;
-  width: 35rem;
+  width: 30rem;
   padding: 0.5rem 1.5rem;
 }
 
@@ -58,5 +69,13 @@ body {
   #logout-btn {
     margin-left: 0;
     padding-left: 0;
+  }
+  .sep {
+    display: none;
+  }
+
+  .logout,
+  .search-link {
+    display: inline;
   }
 }

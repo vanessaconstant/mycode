@@ -27,9 +27,9 @@
   <body>
     <div class="container-fluid">
       <!-- Navigation Bar -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand logo mx-4" href={{url_for("index")}}>FoodLoop</a>
+          <a class="navbar-brand logo mx-4" href={{url_for('index')}}>FoodLoop</a>
           <button
             class="navbar-toggler border-light"
             type="button"
@@ -45,75 +45,58 @@
             class="collapse navbar-collapse nav-contents mt-2"
             id="navbarSupportedContent"
           >
-            
-                <div class="d-flex search-bar " role="search">
-              
-              <form class="d-flex text-white" role="search" action="/search" method="post">
-                
-                  <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  id="search-input"
-                  name="food"
-                />
-                  
-               
-              </form>
-              
-              </div>
-
+            <div class="navbar-nav me-auto mb-2 mb-lg-0"></div>
+            <div class="d-flex" role="search">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item mx-2">
-                  <a class="nav-link text-white" href={{url_for('dashboard')}}>Dashboard</a>
+                  <a class="nav-link text-white search-link" href={{url_for('searchPage')}}>Search</a>
                 </li>
                 <span class="nav-item mx-2 text-white d-flex align-items-center sep">|</span>
                 <li class="nav-item mx-2">
-                  <a class="nav-link text-white" href="#" >Log Out</a>
+                  <a class="nav-link text-white logout" href="#" >Log Out</a>
                 </li>
               </ul>
-              
+
             </div>
-        
-            
           </div>
         </div>
       </nav>
 
-      <!-- Hero Section -->
+      <!-- Dashboard Section -->
+      <div class="container-fluid d-flex align-items-center my-3 dashboard pb-4">
+        <div class="d-flex flex-column align-items-center">
 
-      <!-- Features -->
+            <p class="h4 h6-sm">Macronutrients chart</p>
+            <canvas id="pieChart"></canvas>
+            <p class="h6 mt-3">Consumed</p>
+        </div>
 
-      <h3 class="text-center h3 my-2 display-4 features-header">Result</h3>
-      <p class="text-center"></p>
+        <div class="macro-values">
+            <p class="h4 h-sm-6 mt-2">Macronutrients</p>
+            <p><span class="macro-label">Calories:</span></p>
+            <p><span class="macro-label">Carbs:</span></p>
+            <p><span class="macro-label">Protein:</span></p>
+            <p><span class="macro-label">Fat:</span></p>
 
-      <table class="table">
-        <thead>
-          <tr class="text-center">
-            <th scope="col">Name</th>
-            <th scope="col">Serving Unit</th>
-            <th scope="col">Proteins</th>
-            <th scope="col">Fats</th>
-            <th scope="col">Carbohydrates</th>
-            <th scope="col">Calories</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for res in results%}
-          <tr>
-            
-            {% for ingredient in res%}
-    
-            <th class="text-center">{{res[ingredient]}}</th>
+           <a href={{url_for('searchPage')}} class="btn btn-primary">Add Food</a>
+          </div>
+      </div>
+
+      <div class="container-fluid d-flex my-3 pb-4 food-diary-container">
+
+        <p class="text-center my-2 display-5"> <strong>Food Diary</strong></p>
+
+
+
+
+      </div>
+
+
       
-            {%endfor%}
-            
-          </tr>
-          {%endfor%}
-          
-        </tbody>
-      </table>
+
+      
+
+
     </div>
 
     <script
@@ -121,5 +104,9 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <script src="../static/script.js"></script>
   </body>
 </html>
