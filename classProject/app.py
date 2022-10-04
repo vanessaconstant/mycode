@@ -1,60 +1,77 @@
 
 from crypt import methods
-from unittest import result
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, session
 import requests
 
 app = Flask(__name__)
 
+
+
 @app.route('/')
 def index():
-    name = "jose"
+    
     return render_template('index.html', name=name )
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+@app.route('/searchPage')
+def searchPage():
 
-@app.route('/search', methods=['POST'])
+    return render_template('searchPage.html')
+
+
+@app.route('/search', methods=['GET','POST'])
 def search():
 
-    ingr = "orange"
-    base_url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY"
+    
+    food = request.form['food']
+
+
+    #Setting up API call
+    base_url = "https://trackapi.nutritionix.com/v2/search/instant"
     key = "DEMO_KEY"
     headers = {
-        "Authorization": key
+        "x-app-id": "fc9be373",
+        "x-app-key": "46777694be6e90aec315f750629c276b",
+        "Content-Type": "application/json",
+        "x-remote-user-id": "0"
     }
     params = {
-        "query": ingr
+        "query": food,
+        "detailed": "true"
     }
 
-    response = requests.get(base_url, params=params)
+    response = requests.get(base_url, headers=headers, params=params)
 
-    result = response.json()['foods']
+   #converting result to a json file. 
+    result = response.json()['common']
+    print(result)
+    #empty list to capture all 10 results
     resultList = []
    
+    #print(result)
     for i in range(0,10):
+        
         data = {
-            'Name': result[i]['description'],
-            'Protein':result[i]['foodNutrients'][0]['value'],
-            'Fat':result[i]['foodNutrients'][1]['value'],
-            'Carbohydrate': result[i]['foodNutrients'][2]['value'],
-            'Calorie': result[i]['foodNutrients'][3]['value']
+            'Name': result[i]['food_name'],
+            'Serving Unit':f"{result[i]['serving_qty']} {result[i]['serving_unit']}",
+            'Protein':result[i]['full_nutrients'][0]['value'] ,
+            'Fat':result[i]['full_nutrients'][1]['value'],
+            'Carbohydrate': result[i]['full_nutrients'][2]['value'],
+            'Calorie': result[i]['full_nutrients'][4]['value']
 
         }
-        type(resultList)
-        resultList.append(data)
-        print(resultList)
-        print(result[0]['foodNutrients'][0]['value'])
-        # protein, fat, carbs, calories
-        print("New Ingredient start here")
-    print(resultList)
-    results = resultList
-        # print(result[i]['foodNutrients'][i])
-        # print("hello")
         
-    return render_template('dashboard.html', results=results)
+        resultList.append(data)
+     
+    
+    results = resultList
+       
+    return render_template('searchPage.html', results=results)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+    # {{form.hidden_tag()}}
+    #               {{form.ingr.label}} {{form.ingr}}
+    #               {{form.submit()}}
