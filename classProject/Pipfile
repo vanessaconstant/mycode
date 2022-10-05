@@ -9,6 +9,7 @@ requests = "*"
 flask-wtf = "*"
 matplotlib = "*"
 flask-sqlalchemy = "*"
+flask-migrate = "*"
 
 [dev-packages]
 

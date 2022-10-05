@@ -71,27 +71,27 @@
       
       <div class="container-fluid">
 
-        <form class="login-register-form my-5 mx-auto px-3">
-            {{form.hidden_tag()}}
+        <form class="login-register-form my-5 mx-auto px-3" action="/register" method="POST">
+            {{form2.hidden_tag()}}
             <div class="mb-3">
-                {{form.fname.label(class="form-label")}}
-                {{form.fname(class="form-control")}}
+                {{form2.fname.label(class="form-label")}}
+                {{form2.fname(class="form-control")}}
 
             </div>
            
             <div class="mb-3">
-                {{form.lname.label(class="form-label")}}
-                {{form.lname(class="form-control")}}
+                {{form2.lname.label(class="form-label")}}
+                {{form2.lname(class="form-control")}}
 
             </div>
 
             <div class="mb-3">
-                {{form.email.label(class="form-label")}}
-                {{form.email(class="form-control")}}
+                {{form2.email.label(class="form-label")}}
+                {{form2.email(class="form-control")}}
 
             </div>
 
-            {{form.submit(class="btn btn-primary")}}
+            {{form2.submit(class="btn btn-primary")}}
 
         
       </div>

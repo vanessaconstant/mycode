@@ -1,34 +1,25 @@
 
 from crypt import methods
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, flash
 import requests
 import os
 from flask_sqlalchemy import SQLAlchemy
 import forms
-from models import user
+from models import User
+from __init__ import app, db
 
 
 
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'this is a secret'
-
-#DATABASE
-# setting up the database
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
-
-db = SQLAlchemy(app)
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 
 #ROUTES
 # Index Page route
 @app.route('/')
 def index():
-    
+
     return render_template('index.html')
 
 
@@ -50,12 +41,11 @@ def searchPage():
 @app.route('/search', methods=['GET','POST'])
 def search():
 
-
-
     form = forms.SearchForm()
 
     if form.validate_on_submit():
         food = form.food.data
+        print(food)
         form.food.data = ''
 
     #Setting up API call
@@ -102,15 +92,19 @@ def search():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
-    db.create_all()
+    
+    
     form2 = forms.UserForm()
+    fname = form2.fname.data
+    print(fname)
 
     if form2.validate_on_submit():
-        new_user = user.User(form2.fname.data, form2.lname.data, form2.email.data)
-
+        flash("Registration Completed")
+        new_user = User(form2.fname.data, form2.lname.data, form2.email.data)
+        print(new_user)
         db.session.add(new_user)
         db.session.commit()
-    return render_template('register.html', form=form2)   
+    return render_template('register.html', form2=form2)   
 
 
 if __name__ == '__main__':
