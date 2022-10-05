@@ -7,6 +7,9 @@ from flask_sqlalchemy import SQLAlchemy
 import forms
 from models import User
 from __init__ import app, db
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt()
 
 
 
@@ -99,12 +102,32 @@ def register():
     print(fname)
 
     if form2.validate_on_submit():
-        flash("Registration Completed")
-        new_user = User(form2.fname.data, form2.lname.data, form2.email.data)
-        print(new_user)
+        
+        new_user = User(form2.fname.data, form2.lname.data,form2.password.data, form2.email.data)
         db.session.add(new_user)
         db.session.commit()
+        return redirect('/login')
     return render_template('register.html', form2=form2)   
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+
+    form3 = forms.LoginForm()
+    email = form3.email.data
+    password = form3.password.data
+
+
+    if form3.validate_on_submit():
+        login_user= User.query.filter_by(email=email).first()
+        print(login_user.id)
+        if(bcrypt.check_password_hash(login_user.password, password)):
+            print('password match')
+            return redirect('/dashboard')
+        
+            
+
+    return render_template('login.html', form3=form3)    
+
 
 
 if __name__ == '__main__':
