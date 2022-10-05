@@ -47,15 +47,7 @@
           >
             
                 <div class="d-flex search-bar " role="search">
-              
-              <form class="d-flex text-white" role="search" action="/search" method="post">
-
-                {{form.hidden_tag()}}
-                {{form.food(class="form-control me-2 search-input")}}
-                {{form.submit(class="btn btn-outline-light mx-3 px-3")}}
-                
-               
-              </form>
+        
               
               </div>
 
@@ -76,39 +68,34 @@
         </div>
       </nav>
 
-      <!-- Hero Section -->
-
-      <!-- Features -->
-
-      <h3 class="text-center h3 my-2 display-4 features-header">Result</h3>
-      <p class="text-center"></p>
-
-      <table class="table">
-        <thead>
-          <tr class="text-center">
-            <th scope="col">Name</th>
-            <th scope="col">Serving Unit</th>
-            <th scope="col">Proteins</th>
-            <th scope="col">Fats</th>
-            <th scope="col">Carbohydrates</th>
-            <th scope="col">Calories</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for res in results%}
-          <tr>
-            
-            {% for ingredient in res%}
-    
-            <th class="text-center">{{res[ingredient]}}</th>
       
-            {%endfor%}
-            
-          </tr>
-          {%endfor%}
-          
-        </tbody>
-      </table>
+      <div class="container-fluid">
+
+        <form class="login-register-form my-5 mx-auto px-3">
+            {{form.hidden_tag()}}
+            <div class="mb-3">
+                {{form.fname.label(class="form-label")}}
+                {{form.fname(class="form-control")}}
+
+            </div>
+           
+            <div class="mb-3">
+                {{form.lname.label(class="form-label")}}
+                {{form.lname(class="form-control")}}
+
+            </div>
+
+            <div class="mb-3">
+                {{form.email.label(class="form-label")}}
+                {{form.email(class="form-control")}}
+
+            </div>
+
+            {{form.submit(class="btn btn-primary")}}
+
+        
+      </div>
+      
     </div>
 
     <script
