@@ -62,14 +62,14 @@
               </ul>
 
               <div>
-                <button class="btn btn-outline-light mx-4 px-5" type="submit">
+                <a href={{url_for("register")}} class="btn btn-outline-light mx-2 px-5" type="submit">
                   Register
-                </button>
+                </a>
 
                 <p class="login_text text-white">
                   Already registered?
                   <a
-                    href="https://www.google.com"
+                    href={{url_for('register')}}
                     class="login_link text-white"
                   >
                     <u>Login</u></a
