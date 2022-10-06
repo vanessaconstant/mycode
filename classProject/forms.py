@@ -27,3 +27,8 @@ class AddFoodForm(FlaskForm):
     
     date = DateField("Date: ", validators=[DataRequired()])
     submit = SubmitField('Add Food')
+
+class ChooseDateForm(FlaskForm):
+    
+    date_selected = DateField("Date: ", validators=[DataRequired()])
+    submit = SubmitField('Search')

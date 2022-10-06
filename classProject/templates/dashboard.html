@@ -85,6 +85,19 @@
       <div class="container-fluid d-flex my-3 pb-4 food-diary-container flex-column">
         <div class="container-fluid bg-primary text-white">
             <p class="text-center my-2 display-5"> <strong>Food Diary</strong></p>
+            <form class="login-register-form my-2 mx-auto px-0 d-flex align-items-center" action="/dashboard" method="POST">
+                {{form5.hidden_tag()}}
+            
+    
+                <div class="mb-3 d-flex align-items-center justify-content-evenly">
+                    {{form5.date_selected.label(class="form-label")}}
+                    {{form5.date_selected(class="form-control mx-3")}}
+                    {{form5.submit(class="btn btn-outline-light")}}
+    
+                </div>
+    
+                
+            </form>
         </div>
 
         <table class="table">

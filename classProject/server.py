@@ -31,35 +31,35 @@ def index():
 
 
 # Dashboard Page
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if not session:
         return redirect('/')
 
     login_user = User.query.get(session['users_id'])
     name = login_user.fname
+
+    form5 = forms.ChooseDateForm()
+    date_input = form5.date_selected.data
+    print(date_input)
+
+    date_selected = False
+
+    if(date_input):
+        date_selected = date_input
+        print("the input ran")
+        print(date_selected)
+    else:
+        date_selected = date.today()
+        print("todays date ran")
+
    
-    userFoodList = FoodItem.query.join(User.foodList).filter(User.id==session['users_id'],
-    FoodItem.date_logged==date.today()).all()
-    sumCalorie = []
-    sumCarb = []
-    sumPro = []
-    sumFat = []
-
-    for fooditem in userFoodList:
-        sumCalorie.append(fooditem.calorie)
-        sumCarb.append(fooditem.carbs)
-        sumPro.append(fooditem.protein)
-        sumFat.append(fooditem.fat)
-
-    print(sumCalorie)
-    # Adding the totals
-    print("This is the user food list")
-    totals = ['Total', round(sum(sumCalorie),2), round(sum(sumCarb),2), round(sum(sumPro),2), round(sum(sumFat),2), '']
-    print(totals)
+   
+    food_log = daily_food_log(date_selected)
+    
     return render_template('dashboard.html', name=name, 
-    userFoodList=userFoodList, 
-    totals=totals)
+    userFoodList=food_log[0], 
+    totals=food_log[1], form5=form5)
 
 # Search Page
 @app.route('/searchPage')
@@ -132,7 +132,8 @@ def login():
         session['users_id'] = login_user.id
         
         if(bcrypt.check_password_hash(login_user.password, password)):
-            return redirect('/dashboard')      
+            todays_date = date.today()
+            return redirect(f'/dashboard/{todays_date}')      
 
     return render_template('login.html', form3=form3)  
 
@@ -194,8 +195,9 @@ def addFood(food):
     db.session.add(addedfood)
     db.session.commit()
 
-    print(FoodItem.query.filter_by(user_id=1).all())
+
     return redirect('/dashboard')
+
 
 #Deleting food from food log
 @app.route('/delete/<food>', methods=['GET', 'POST'])
@@ -203,7 +205,34 @@ def delete_food(food):
     food_to_delete = FoodItem.query.get(food)
     db.session.delete(food_to_delete)
     db.session.commit()
+    
     return redirect('/dashboard')
+
+# Daily log function returns food log by selected date
+
+def daily_food_log(date_selected):
+
+    userFoodList = FoodItem.query.join(User.foodList).filter(User.id==session['users_id'],
+    FoodItem.date_logged==date_selected).all()
+    sumCalorie = []
+    sumCarb = []
+    sumPro = []
+    sumFat = []
+
+    for fooditem in userFoodList:
+        sumCalorie.append(fooditem.calorie)
+        sumCarb.append(fooditem.carbs)
+        sumPro.append(fooditem.protein)
+        sumFat.append(fooditem.fat)
+
+   
+
+    # Adding the totals
+    totals = ['Total', round(sum(sumCalorie),2), round(sum(sumCarb),2), round(sum(sumPro),2), round(sum(sumFat),2), '']
+  
+    daily_log = [userFoodList, totals]
+
+    return daily_log
 
 #creating apicall function for reusability
 def apiCall(food):
