@@ -179,6 +179,7 @@ def addFood(food):
 
 
     data = {
+    
             'Name': result[0]['food_name'],
             'Protein':round(result[0]['full_nutrients'][0]['value'], 2) ,
             'Fat':round(result[0]['full_nutrients'][1]['value'], 2),
@@ -196,6 +197,13 @@ def addFood(food):
     print(FoodItem.query.filter_by(user_id=1).all())
     return redirect('/dashboard')
 
+#Deleting food from food log
+@app.route('/delete/<food>', methods=['GET', 'POST'])
+def delete_food(food):
+    food_to_delete = FoodItem.query.get(food)
+    db.session.delete(food_to_delete)
+    db.session.commit()
+    return redirect('/dashboard')
 
 #creating apicall function for reusability
 def apiCall(food):
