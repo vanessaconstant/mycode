@@ -84,8 +84,8 @@
 
       <div class="container-fluid d-flex my-3 pb-4 food-diary-container flex-column">
         <div class="container-fluid bg-primary text-white">
-            <p class="text-center my-2 display-5"> <strong>Food Diary</strong></p>
-            <form class="login-register-form my-2 mx-auto px-0 d-flex align-items-center" action="/dashboard" method="POST">
+            <p class="text-center my-2 display-5"> <strong>{{display_date}}</strong></p>
+            <form class="login-register-form my-3 mx-auto px-0 d-flex align-items-center" action="/dashboard" method="POST">
                 {{form5.hidden_tag()}}
             
     
@@ -134,6 +134,12 @@
                   <th class="text-center text-sm"> {{total}}</th>
                   {%endfor%}
               </tr>
+              {%if totals[2] > 140 %}
+                
+
+              <td colspan="6" class="bg-danger text-center text-white">You have exceeded the recommended amount of 140g of carbs per day! Consider modifying your daily meals.</td>
+          
+          {%endif%}
               
             </tbody>
           </table>

@@ -47,19 +47,18 @@ def dashboard():
 
     if(date_input):
         date_selected = date_input
-        print("the input ran")
         print(date_selected)
     else:
         date_selected = date.today()
         print("todays date ran")
 
-   
+    display_date = date_selected.strftime("%A %B %d %Y")
    
     food_log = daily_food_log(date_selected)
     
     return render_template('dashboard.html', name=name, 
     userFoodList=food_log[0], 
-    totals=food_log[1], form5=form5)
+    totals=food_log[1], form5=form5, display_date=display_date)
 
 # Search Page
 @app.route('/searchPage')
