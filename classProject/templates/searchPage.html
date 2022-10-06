@@ -85,9 +85,9 @@
 
       <table class="table">
         <thead>
-          <tr class="text-center">
+          <tr class="text-center text-sm">
             <th scope="col">Name</th>
-            <th scope="col">Serving Unit</th>
+            <th scope="col">Unit</th>
             <th scope="col">Proteins</th>
             <th scope="col">Fats</th>
             <th scope="col">Carbs</th>
@@ -101,10 +101,10 @@
             
             {% for ingredient in res%}
     
-            <th class="text-center">{{res[ingredient]}}</th>
+            <th class="text-center text-sm">{{res[ingredient]}}</th>
       
             {%endfor%}
-            <th class="text-center"><a href="/view/{{res['Name']}}" class="btn btn-outline-primary mx-3 px-3">View</a></th>
+            <th class="text-center text-sm"><a href="/view/{{res['Name']}}" class="btn btn-outline-primary mx-3 px-3">View</a></th>
           </tr>
           {%endfor%}
           

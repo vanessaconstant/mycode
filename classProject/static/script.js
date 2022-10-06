@@ -1,7 +1,7 @@
-// Dashboard Pie
+// Dashboard Pie Chart
 
-var ctxP = document.getElementById("pieChart").getContext("2d");
-var myPieChart = new Chart(ctxP, {
+var ctx = document.getElementById("pieChart").getContext("2d");
+var myPieChart = new Chart(ctx, {
   type: "pie",
   data: {
     labels: ["Carbs", "Proteins", "Fat"],
