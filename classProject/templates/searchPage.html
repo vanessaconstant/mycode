@@ -90,8 +90,9 @@
             <th scope="col">Serving Unit</th>
             <th scope="col">Proteins</th>
             <th scope="col">Fats</th>
-            <th scope="col">Carbohydrates</th>
+            <th scope="col">Carbs</th>
             <th scope="col">Calories</th>
+            <th scope="col">Details</th>
           </tr>
         </thead>
         <tbody>
@@ -103,7 +104,7 @@
             <th class="text-center">{{res[ingredient]}}</th>
       
             {%endfor%}
-            
+            <th class="text-center"><a href="/view/{{res['Name']}}" class="btn btn-outline-primary mx-3 px-3">View</a></th>
           </tr>
           {%endfor%}
           
