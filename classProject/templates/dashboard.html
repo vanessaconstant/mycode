@@ -109,6 +109,12 @@
                
                 <th class="text-center text-sm"><a href="#" class="btn btn-outline-primary mx-3 px-3">Delete</a></th>
               </tr>
+                {%if food.carbs > 45 %}
+                
+
+                    <td colspan="6" class="text-danger text-center">The above food contains more than the recommended 45g of carbs per meal! Consider eating a different meal.</td>
+                
+                {%endif%}
               {%endfor%}
               <tr class="bg-primary text-white text-sm text-center">
                 {%for total in totals%}
