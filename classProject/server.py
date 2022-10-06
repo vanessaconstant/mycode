@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
+"""TLG Cohort | Vconstant
+    File managing routing and functionality for the website"""
 
 from crypt import methods
-
 from flask import Flask, render_template, redirect, request, session, flash
 import requests
 import os
@@ -12,11 +14,7 @@ from flask_bcrypt import Bcrypt
 from datetime import date
 
 
-
-
-
 bcrypt = Bcrypt()
-
 
 
 @app.before_first_request
@@ -27,8 +25,7 @@ def create_tables():
 #ROUTES
 # Index Page route
 @app.route('/')
-def index():
-    
+def index():  
     return render_template('index.html')
 
 
@@ -39,11 +36,11 @@ def dashboard():
     if not session:
         return redirect('/')
 
-
     login_user = User.query.get(session['users_id'])
     name = login_user.fname
    
-    userFoodList = FoodItem.query.join(User.foodList).filter(User.id==session['users_id'], FoodItem.date_logged==date.today()).all()
+    userFoodList = FoodItem.query.join(User.foodList).filter(User.id==session['users_id'],
+    FoodItem.date_logged==date.today()).all()
     sumCalorie = []
     sumCarb = []
     sumPro = []
@@ -60,7 +57,9 @@ def dashboard():
     print("This is the user food list")
     totals = ['Total', round(sum(sumCalorie),2), round(sum(sumCarb),2), round(sum(sumPro),2), round(sum(sumFat),2), '']
     print(totals)
-    return render_template('dashboard.html', name=name, userFoodList=userFoodList, totals=totals)
+    return render_template('dashboard.html', name=name, 
+    userFoodList=userFoodList, 
+    totals=totals)
 
 # Search Page
 @app.route('/searchPage')
@@ -110,10 +109,7 @@ def search():
 @app.route('/register', methods=['GET','POST'])
 def register():
     
-    
     form2 = forms.UserForm()
-    fname = form2.fname.data
-    print(fname)
 
     if form2.validate_on_submit():
         
@@ -134,9 +130,8 @@ def login():
     if form3.validate_on_submit():
         login_user= User.query.filter_by(email=email).first()
         session['users_id'] = login_user.id
-        print(login_user.id)
+        
         if(bcrypt.check_password_hash(login_user.password, password)):
-            print('password match')
             return redirect('/dashboard')      
 
     return render_template('login.html', form3=form3)  

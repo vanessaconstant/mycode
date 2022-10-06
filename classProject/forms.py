@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import (StringField, SubmitField, DateField)
+from wtforms import (StringField, SubmitField, DateField, PasswordField)
 from wtforms.validators import DataRequired
 
 
@@ -13,14 +13,14 @@ class UserForm(FlaskForm):
     fname = StringField("First Name: ", validators=[DataRequired()])
     lname = StringField("Last Name: ", validators=[DataRequired()])
     email = StringField("Email: ", validators=[DataRequired()])
-    password = StringField("Password: ", validators=[DataRequired()])
+    password = PasswordField("Password: ", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
 class LoginForm(FlaskForm):
     
     email = StringField("Email: ", validators=[DataRequired()])
-    password = StringField("Password: ", validators=[DataRequired()])
+    password = PasswordField("Password: ", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class AddFoodForm(FlaskForm):

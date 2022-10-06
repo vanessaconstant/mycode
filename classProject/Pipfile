@@ -11,6 +11,7 @@ matplotlib = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-bcrypt = "*"
+pylint = "*"
 
 [dev-packages]
 
