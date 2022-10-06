@@ -42,9 +42,25 @@ def dashboard():
 
     login_user = User.query.get(session['users_id'])
     name = login_user.fname
-    # userFoodList = FoodItem.query.filter_by(user_id=session['users_id']).all()
+   
     userFoodList = FoodItem.query.join(User.foodList).filter(User.id==session['users_id'], FoodItem.date_logged==date.today()).all()
-    return render_template('dashboard.html', name=name, userFoodList=userFoodList)
+    sumCalorie = []
+    sumCarb = []
+    sumPro = []
+    sumFat = []
+
+    for fooditem in userFoodList:
+        sumCalorie.append(fooditem.calorie)
+        sumCarb.append(fooditem.carbs)
+        sumPro.append(fooditem.protein)
+        sumFat.append(fooditem.fat)
+
+    print(sumCalorie)
+    # Adding the totals
+    print("This is the user food list")
+    totals = ['Total', round(sum(sumCalorie),2), round(sum(sumCarb),2), round(sum(sumPro),2), round(sum(sumFat),2), '']
+    print(totals)
+    return render_template('dashboard.html', name=name, userFoodList=userFoodList, totals=totals)
 
 # Search Page
 @app.route('/searchPage')

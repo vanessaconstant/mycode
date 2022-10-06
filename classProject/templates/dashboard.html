@@ -73,10 +73,10 @@
 
         <div class="macro-values">
             <p class="h4 h-sm-6 mt-2">Macronutrients</p>
-            <p><span class="macro-label">Calories:</span></p>
-            <p><span class="macro-label">Carbs:</span></p>
-            <p><span class="macro-label">Protein:</span></p>
-            <p><span class="macro-label">Fat:</span></p>
+            <p><span class="macro-label">Calories: </span>{{totals[1]}} kcal</p>
+            <p><span class="macro-label">Carbs: </span><span id="dash-carb">{{totals[2]}}</span>g</p>
+            <p><span class="macro-label">Protein: </span><span id="dash-pro">{{totals[3]}}</span>g</p>
+            <p><span class="macro-label">Fat: </span><span id="dash-fat">{{totals[4]}}</span>g</p>
 
            <a href={{url_for('searchPage')}} class="btn btn-primary">Search Food</a>
           </div>
@@ -102,14 +102,19 @@
                 {%for food in userFoodList %}
               <tr>
                 <th class="text-center text-sm"> {{food.name}}</th>
-                <th class="text-center text-sm"> {{food.calorie}}</th>
-                <th class="text-center text-sm"> {{food.carbs}}</th>
-                <th class="text-center text-sm"> {{food.protein}}</th>
-                <th class="text-center text-sm"> {{food.fat}}</th>
+                <th class="text-center text-sm"> {{food.calorie}} kcal</th>
+                <th class="text-center text-sm"> {{food.carbs}}g</th>
+                <th class="text-center text-sm"> {{food.protein}}g</th>
+                <th class="text-center text-sm"> {{food.fat}}g</th>
                
                 <th class="text-center text-sm"><a href="#" class="btn btn-outline-primary mx-3 px-3">Delete</a></th>
               </tr>
               {%endfor%}
+              <tr class="bg-primary text-white text-sm text-center">
+                {%for total in totals%}
+                  <th class="text-center text-sm"> {{total}}</th>
+                  {%endfor%}
+              </tr>
               
             </tbody>
           </table>
