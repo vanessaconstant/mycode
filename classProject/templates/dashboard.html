@@ -49,11 +49,11 @@
             <div class="d-flex" role="search">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item mx-2">
-                  <a class="nav-link text-white search-link" href={{url_for('searchPage')}}>Search</a>
+                  <p class="nav-link text-white search-link d-flex align-items-center">Welcome </p>
                 </li>
-                <span class="nav-item mx-2 text-white d-flex align-items-center sep">|</span>
+                <p class="nav-item mx-2 text-white d-flex align-items-center sep">|</p>
                 <li class="nav-item mx-2">
-                  <a class="nav-link text-white logout" href="#" >Log Out</a>
+                  <a class="nav-link text-white d-flex align-items-center logout" href="#" >Log Out</a>
                 </li>
               </ul>
 
@@ -78,13 +78,15 @@
             <p><span class="macro-label">Protein:</span></p>
             <p><span class="macro-label">Fat:</span></p>
 
-           <a href={{url_for('searchPage')}} class="btn btn-primary">Add Food</a>
+           <a href={{url_for('searchPage')}} class="btn btn-primary">Search Food</a>
           </div>
       </div>
 
       <div class="container-fluid d-flex my-3 pb-4 food-diary-container">
-
-        <p class="text-center my-2 display-5"> <strong>Food Diary</strong></p>
+        <div class="container-fluid bg-primary text-white">
+            <p class="text-center my-2 display-5"> <strong>Food Diary</strong></p>
+        </div>
+        
 
 
 
