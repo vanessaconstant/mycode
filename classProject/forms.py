@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import (StringField, SubmitField)
+from wtforms import (StringField, SubmitField, DateField)
 from wtforms.validators import DataRequired
 
 
@@ -22,3 +22,8 @@ class LoginForm(FlaskForm):
     email = StringField("Email: ", validators=[DataRequired()])
     password = StringField("Password: ", validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class AddFoodForm(FlaskForm):
+    
+    date = DateField("Date: ", validators=[DataRequired()])
+    submit = SubmitField('Add Food')
