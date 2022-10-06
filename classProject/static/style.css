@@ -82,4 +82,12 @@ body {
   .search-link {
     display: inline;
   }
+
+  #foodView-thumb {
+    display: none;
+  }
+
+  .text-sm {
+    font-size: 14px;
+  }
 }

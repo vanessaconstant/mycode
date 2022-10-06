@@ -1,5 +1,6 @@
 
 from crypt import methods
+from unittest import result
 from flask import Flask, render_template, redirect, request, session, flash
 import requests
 import os
@@ -51,7 +52,92 @@ def search():
         print(food)
         form.food.data = ''
 
-    #Setting up API call
+    #calling api function
+    result = apiCall(food)
+
+    #crate empty list to capture all 10 results
+    resultList = []
+   
+    #print(result)
+    for i in range(0,10):
+        
+        data = {
+            'Name': result[i]['food_name'],
+            'Serving Unit':f"{result[i]['serving_qty']} {result[i]['serving_unit']}",
+            'Protein':round(result[i]['full_nutrients'][0]['value'], 2) ,
+            'Fat':round(result[i]['full_nutrients'][1]['value'], 2),
+            'Carbohydrate': round(result[i]['full_nutrients'][2]['value'], 2),
+            'Calorie':round(result[i]['full_nutrients'][4]['value'], 2)
+
+        }
+        
+        resultList.append(data)
+     
+    
+    results = resultList
+       
+    return render_template('searchPage.html', results=results, form=form, food= food)
+
+#Registration page
+@app.route('/register', methods=['GET','POST'])
+def register():
+    
+    
+    form2 = forms.UserForm()
+    fname = form2.fname.data
+    print(fname)
+
+    if form2.validate_on_submit():
+        
+        new_user = User(form2.fname.data, form2.lname.data,form2.password.data, form2.email.data)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect('/login')
+    return render_template('register.html', form2=form2)   
+
+#Login Page 
+@app.route('/login', methods=['GET','POST'])
+def login():
+
+    form3 = forms.LoginForm()
+    email = form3.email.data
+    password = form3.password.data
+
+    if form3.validate_on_submit():
+        login_user= User.query.filter_by(email=email).first()
+        print(login_user.id)
+        if(bcrypt.check_password_hash(login_user.password, password)):
+            print('password match')
+            return redirect('/dashboard')      
+
+    return render_template('login.html', form3=form3)  
+
+
+
+#Detailed Food Info Page
+@app.route('/view/<food>')
+def foodDetail(food):
+
+    result = apiCall(food)
+    print(result)
+
+    data = {
+            'Name': result[0]['food_name'],
+            'Serving Unit':f"{result[0]['serving_qty']} {result[0]['serving_unit']}",
+            'photo': result[0]['photo']['thumb'],
+            'Protein':round(result[0]['full_nutrients'][0]['value'], 2) ,
+            'Fat':round(result[0]['full_nutrients'][1]['value'], 2),
+            'Carbohydrate': round(result[0]['full_nutrients'][2]['value'], 2),
+            'Calorie': round(result[0]['full_nutrients'][4]['value'], 2)
+
+        }
+
+
+    return render_template("detailedView.html", data=data)
+
+
+#creating apicall function for reusability
+def apiCall(food):
     base_url = "https://trackapi.nutritionix.com/v2/search/instant"
     key = "DEMO_KEY"
     headers = {
@@ -69,64 +155,8 @@ def search():
 
    #converting result to a json file. 
     result = response.json()['common']
-    
-    #empty list to capture all 10 results
-    resultList = []
-   
-    #print(result)
-    for i in range(0,10):
-        
-        data = {
-            'Name': result[i]['food_name'],
-            'Serving Unit':f"{result[i]['serving_qty']} {result[i]['serving_unit']}",
-            'Protein':result[i]['full_nutrients'][0]['value'] ,
-            'Fat':result[i]['full_nutrients'][1]['value'],
-            'Carbohydrate': result[i]['full_nutrients'][2]['value'],
-            'Calorie': result[i]['full_nutrients'][4]['value']
 
-        }
-        
-        resultList.append(data)
-     
-    
-    results = resultList
-       
-    return render_template('searchPage.html', results=results, form=form, food= food)
-
-@app.route('/register', methods=['GET','POST'])
-def register():
-    
-    
-    form2 = forms.UserForm()
-    fname = form2.fname.data
-    print(fname)
-
-    if form2.validate_on_submit():
-        
-        new_user = User(form2.fname.data, form2.lname.data,form2.password.data, form2.email.data)
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect('/login')
-    return render_template('register.html', form2=form2)   
-
-@app.route('/login', methods=['GET','POST'])
-def login():
-
-    form3 = forms.LoginForm()
-    email = form3.email.data
-    password = form3.password.data
-
-
-    if form3.validate_on_submit():
-        login_user= User.query.filter_by(email=email).first()
-        print(login_user.id)
-        if(bcrypt.check_password_hash(login_user.password, password)):
-            print('password match')
-            return redirect('/dashboard')
-        
-            
-
-    return render_template('login.html', form3=form3)    
+    return result  
 
 
 
