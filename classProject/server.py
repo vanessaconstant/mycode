@@ -31,8 +31,9 @@ def index():
 @app.route('/dashboard')
 def dashboard():
 
-
-    return render_template('dashboard.html')
+    login_user = User.query.get(session['user_id'])
+    name = login_user.fname
+    return render_template('dashboard.html', name=name)
 
 # Search Page
 @app.route('/searchPage')
@@ -105,6 +106,7 @@ def login():
 
     if form3.validate_on_submit():
         login_user= User.query.filter_by(email=email).first()
+        session['user_id'] = login_user.id
         print(login_user.id)
         if(bcrypt.check_password_hash(login_user.password, password)):
             print('password match')
