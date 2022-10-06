@@ -53,7 +53,7 @@
                 </li>
                 <p class="nav-item mx-2 text-white d-flex align-items-center sep">|</p>
                 <li class="nav-item mx-2">
-                  <a class="nav-link text-white d-flex align-items-center logout" href="#" >Log Out</a>
+                  <a class="nav-link text-white d-flex align-items-center logout" href={{url_for('logout')}} >Log Out</a>
                 </li>
               </ul>
 
@@ -82,22 +82,41 @@
           </div>
       </div>
 
-      <div class="container-fluid d-flex my-3 pb-4 food-diary-container">
+      <div class="container-fluid d-flex my-3 pb-4 food-diary-container flex-column">
         <div class="container-fluid bg-primary text-white">
             <p class="text-center my-2 display-5"> <strong>Food Diary</strong></p>
         </div>
-        
 
+        <table class="table">
+            <thead>
+              <tr class="text-center text-sm">
+                <th scope="col">Name</th>
+                <th scope="col">Calories</th>
+                <th scope="col">Carbs</th>
+                <th scope="col">Proteins</th>
+                <th scope="col">Fats</th>
+                <th scope="col">Update</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for food in userFoodList %}
+              <tr>
+                <th class="text-center text-sm"> {{food.name}}</th>
+                <th class="text-center text-sm"> {{food.calorie}}</th>
+                <th class="text-center text-sm"> {{food.carbs}}</th>
+                <th class="text-center text-sm"> {{food.protein}}</th>
+                <th class="text-center text-sm"> {{food.fat}}</th>
+               
+                <th class="text-center text-sm"><a href="#" class="btn btn-outline-primary mx-3 px-3">Delete</a></th>
+              </tr>
+              {%endfor%}
+              
+            </tbody>
+          </table>
 
 
 
       </div>
-
-
-      
-
-      
-
 
     </div>
 

@@ -1,14 +1,19 @@
 
 from crypt import methods
-from unittest import result
+
 from flask import Flask, render_template, redirect, request, session, flash
 import requests
 import os
 from flask_sqlalchemy import SQLAlchemy
 import forms
-from models import User
+from models import User, FoodItem
 from __init__ import app, db
 from flask_bcrypt import Bcrypt
+from datetime import date
+
+
+
+
 
 bcrypt = Bcrypt()
 
@@ -23,17 +28,23 @@ def create_tables():
 # Index Page route
 @app.route('/')
 def index():
-
+    
     return render_template('index.html')
+
 
 
 # Dashboard Page
 @app.route('/dashboard')
 def dashboard():
+    if not session:
+        return redirect('/')
 
-    login_user = User.query.get(session['user_id'])
+
+    login_user = User.query.get(session['users_id'])
     name = login_user.fname
-    return render_template('dashboard.html', name=name)
+    # userFoodList = FoodItem.query.filter_by(user_id=session['users_id']).all()
+    userFoodList = FoodItem.query.join(User.foodList).filter(User.id==session['users_id'], FoodItem.date_logged==date.today()).all()
+    return render_template('dashboard.html', name=name, userFoodList=userFoodList)
 
 # Search Page
 @app.route('/searchPage')
@@ -106,7 +117,7 @@ def login():
 
     if form3.validate_on_submit():
         login_user= User.query.filter_by(email=email).first()
-        session['user_id'] = login_user.id
+        session['users_id'] = login_user.id
         print(login_user.id)
         if(bcrypt.check_password_hash(login_user.password, password)):
             print('password match')
@@ -114,14 +125,22 @@ def login():
 
     return render_template('login.html', form3=form3)  
 
-
+#Logout functionality
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 #Detailed Food Info Page
 @app.route('/view/<food>')
 def foodDetail(food):
 
+    form4 = forms.AddFoodForm()
+
     result = apiCall(food)
     print(result)
+
+
 
     data = {
             'Name': result[0]['food_name'],
@@ -135,7 +154,36 @@ def foodDetail(food):
         }
 
 
-    return render_template("detailedView.html", data=data)
+    return render_template("detailedView.html", data=data, form4=form4)
+
+@app.route('/addedFood/<food>', methods=['GET', 'POST'])
+def addFood(food):
+
+    form4 = forms.AddFoodForm()
+    print(food)
+    date_logged =form4.date.data
+
+    result = apiCall(food)
+    print(result)
+
+
+    data = {
+            'Name': result[0]['food_name'],
+            'Protein':round(result[0]['full_nutrients'][0]['value'], 2) ,
+            'Fat':round(result[0]['full_nutrients'][1]['value'], 2),
+            'Carbohydrate': round(result[0]['full_nutrients'][2]['value'], 2),
+            'Calorie': round(result[0]['full_nutrients'][4]['value'], 2),
+            'date_logged':date_logged,
+            'user_id': session['users_id']
+
+        }
+
+    addedfood = FoodItem(data['Name'], data['Calorie'], data['Carbohydrate'], data['Protein'], data['Fat'],data['date_logged'], data['user_id'])
+    db.session.add(addedfood)
+    db.session.commit()
+
+    print(FoodItem.query.filter_by(user_id=1).all())
+    return redirect('/dashboard')
 
 
 #creating apicall function for reusability
