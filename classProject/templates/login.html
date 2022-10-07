@@ -57,7 +57,7 @@
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item mx-2 d-flex align-items-center">
                     <i class="fas fa-search text-white"></i>
-                    <a class="nav-link text-white" href={{url_for('searchPage')}}>Food Search</a>
+                    <a class="nav-link text-white" href={{url_for('search_page')}}>Food Search</a>
                 </li>
               </ul>
               
@@ -73,6 +73,16 @@
 
         <form class="login-register-form my-5 mx-auto px-3" action="/login" method="POST">
             {{form3.hidden_tag()}}
+
+            <div class="text-danger">
+                {% with messages = get_flashed_messages(category_filter=['login'])%}
+                                {%if messages%}
+                                    {%for message in messages%}
+                                        <p>{{message}}</p>
+                                    {%endfor%}
+                                {%endif%}
+                            {%endwith%}
+            </div>
         
 
             <div class="mb-3">
@@ -88,6 +98,8 @@
             </div>
 
             {{form3.submit(class="btn btn-primary")}}
+
+
         </form>
         
       </div>

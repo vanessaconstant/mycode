@@ -78,7 +78,7 @@
             <p><span class="macro-label">Protein: </span><span id="dash-pro">{{totals[3]}}</span>g</p>
             <p><span class="macro-label">Fat: </span><span id="dash-fat">{{totals[4]}}</span>g</p>
 
-           <a href={{url_for('searchPage')}} class="btn btn-primary">Search Food</a>
+           <a href={{url_for('search_page')}} class="btn btn-primary">Search Food</a>
           </div>
       </div>
 
@@ -112,7 +112,7 @@
               </tr>
             </thead>
             <tbody>
-                {%for food in userFoodList %}
+                {%for food in user_food_list%}
               <tr>
                 <th class="text-center text-sm"> {{food.name}}</th>
                 <th class="text-center text-sm"> {{food.calorie}} kcal</th>

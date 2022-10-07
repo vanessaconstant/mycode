@@ -61,6 +61,10 @@ body {
   max-width: 500px;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (max-width: 576px) {
   #search_input {
     width: 300px;
