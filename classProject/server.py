@@ -67,6 +67,8 @@ def dashboard():
 @app.route('/searchPage')
 def search_page():
     """This function routes to the search page"""
+    if not session:
+        return redirect('/')
 
     form = forms.SearchForm()
 
@@ -76,6 +78,8 @@ def search_page():
 @app.route('/search', methods=['GET','POST'])
 def search():
     """This function allows the user to search for foods"""
+    
+
     form = forms.SearchForm()
 
     if form.validate_on_submit():
@@ -160,6 +164,7 @@ def logout():
 def food_detail(food):
     """ This function routes the user 
         to a more detailed view page"""
+
 
     #form to log the food to a specific date
     form4 = forms.AddFoodForm()
