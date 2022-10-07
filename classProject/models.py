@@ -1,13 +1,18 @@
-from datetime import datetime, date
-from enum import unique
+#!/usr/bin/env python3
+
+""" FoodLoop Web Application | VConstant
+    File handles all the forms for the application"""
+from datetime import datetime
 from flask import Flask
-from __init__ import db
 from flask_bcrypt import Bcrypt
+from __init__ import db
+
 
 bcrypt = Bcrypt()
 
 
 class User(db.Model):
+    """This class creates the user object"""
 
     __tablename__ = 'users'
 
@@ -28,10 +33,9 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User's name is {self.fname} {self.lname}"
-    
-    
 
 class FoodItem(db.Model):
+    """This class create the food item object"""
     __tablename__ = 'fooditems'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -45,7 +49,6 @@ class FoodItem(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, name, calorie, carbs, protein, fat, date_logged, user_id):
-        
         self.name = name
         self.calorie = calorie
         self.carbs = carbs
@@ -56,3 +59,4 @@ class FoodItem(db.Model):
 
     def __repr__(self):
         return f"{self.name}"
+        
