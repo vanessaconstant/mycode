@@ -22,7 +22,7 @@ def create_tables():
 #ROUTES
 # Index Page route
 @app.route('/')
-def index():  
+def index():
     """This function routes to the index page"""
     return render_template('index.html')
 
@@ -59,8 +59,8 @@ def dashboard():
     #calls the function that filters the logs by date
     food_log = daily_food_log(date_selected)
     
-    return render_template('dashboard.html', name=name, 
-    user_food_list=food_log[0], 
+    return render_template('dashboard.html', name=name,
+    user_food_list=food_log[0],
     totals=food_log[1], form5=form5, display_date=display_date)
 
 # Search Page
@@ -98,11 +98,10 @@ def search():
         data = {
             'Name': result[i]['food_name'],
             'Serving Unit':f"{result[i]['serving_qty']} {result[i]['serving_unit']}",
-            'Protein':round(result[i]['full_nutrients'][0]['value'], 2) ,
+            'Protein':round(result[i]['full_nutrients'][0]['value'], 2),
             'Fat':round(result[i]['full_nutrients'][1]['value'], 2),
             'Carbohydrate': round(result[i]['full_nutrients'][2]['value'], 2),
             'Calorie':round(result[i]['full_nutrients'][4]['value'], 2)
-
         }
         
         result_list.append(data)
@@ -121,7 +120,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         return redirect('/login')
-    return render_template('register.html', form2=form2)   
+    return render_template('register.html', form2=form2)
 
 #Login Page 
 @app.route('/login', methods=['GET','POST'])
@@ -142,15 +141,15 @@ def login():
         login_user= User.query.filter_by(email=email).first()
         session['users_id'] = login_user.id
         
-        #passwords are hashed 
+        #passwords are hashed
         #this method is checking the inputed password matches
         #the stored hashed password
         if(bcrypt.check_password_hash(login_user.password, password)):
             return redirect('/dashboard')
         else:
-            flash('Please enter a valid user name and password.', 'login')      
+            flash('Please enter a valid user name and password.', 'login')
 
-    return render_template('login.html', form3=form3)  
+    return render_template('login.html', form3=form3)
 
 #Logout functionality
 @app.route('/logout')
@@ -162,7 +161,7 @@ def logout():
 #Detailed Food Info Page
 @app.route('/view/<food>')
 def food_detail(food):
-    """ This function routes the user 
+    """ This function routes the user
         to a more detailed view page"""
 
 
@@ -178,7 +177,7 @@ def food_detail(food):
             'Name': result[0]['food_name'],
             'Serving Unit':f"{result[0]['serving_qty']} {result[0]['serving_unit']}",
             'photo': result[0]['photo']['thumb'],
-            'Protein':round(result[0]['full_nutrients'][0]['value'], 2) ,
+            'Protein':round(result[0]['full_nutrients'][0]['value'], 2),
             'Fat':round(result[0]['full_nutrients'][1]['value'], 2),
             'Carbohydrate': round(result[0]['full_nutrients'][2]['value'], 2),
             'Calorie': round(result[0]['full_nutrients'][4]['value'], 2)
@@ -202,7 +201,7 @@ def add_food(food):
     data = {
     
             'Name': result[0]['food_name'],
-            'Protein':round(result[0]['full_nutrients'][0]['value'], 2) ,
+            'Protein':round(result[0]['full_nutrients'][0]['value'], 2),
             'Fat':round(result[0]['full_nutrients'][1]['value'], 2),
             'Carbohydrate': round(result[0]['full_nutrients'][2]['value'], 2),
             'Calorie': round(result[0]['full_nutrients'][4]['value'], 2),
@@ -212,7 +211,7 @@ def add_food(food):
         }
 
     #addingt the food to the data base
-    added_food = FoodItem(data['Name'], data['Calorie'], data['Carbohydrate'], data['Protein'], data['Fat'],data['date_logged'], data['user_id'])
+    added_food = FoodItem(data['Name'], data['Calorie'], data['Carbohydrate'], data['Protein'],data['Fat'],data['date_logged'], data['user_id'])
     db.session.add(added_food)
     db.session.commit()
 
@@ -273,13 +272,10 @@ def api_call(food):
 
     response = requests.get(base_url, headers=headers, params=params)
 
-   #converting result to a json file. 
+   #converting result to a json file.
     result = response.json()['common']
 
-    return result  
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-    

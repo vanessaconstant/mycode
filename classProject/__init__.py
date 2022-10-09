@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+""" FoodLoop Web Application | VConstant
+    File handles all the forms for the application"""
+
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
